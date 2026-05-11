@@ -20,7 +20,7 @@ export const products: Product[] = [
     subCategory: "Lehenga",
     image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80",
     badge: "Bestseller",
-    description: "A rich maroon silk lehenga adorned with intricate zardozi embroidery."
+    description: "A rich maroon silk lehenga adorned with intricate zardozi embroidery.",
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ export const products: Product[] = [
     subCategory: "Kurta Set",
     image: "https://images.unsplash.com/photo-1614660309652-3ebf50125e19?auto=format&fit=crop&w=800&q=80",
     badge: "New Arrival",
-    description: "Classic ivory kurta set in fine Chanderi silk, perfect for day events."
+    description: "Classic ivory kurta set in fine Chanderi silk, perfect for day events.",
   },
   {
     id: 3,
@@ -40,7 +40,7 @@ export const products: Product[] = [
     category: "Women",
     subCategory: "Saree",
     image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80",
-    description: "Deep blue velvet saree featuring a heavy antique gold border."
+    description: "Deep blue velvet saree featuring a heavy antique gold border.",
   },
   {
     id: 4,
@@ -50,7 +50,7 @@ export const products: Product[] = [
     subCategory: "Sherwani",
     image: "https://images.unsplash.com/photo-1559582798-678dfc71cee4?auto=format&fit=crop&w=800&q=80",
     badge: "Bestseller",
-    description: "A masterpiece in gold brocade, tailored for the modern groom."
+    description: "A masterpiece in gold brocade, tailored for the modern groom.",
   },
   {
     id: 5,
@@ -59,7 +59,7 @@ export const products: Product[] = [
     category: "Women",
     subCategory: "Sarara Set",
     image: "https://images.unsplash.com/photo-1596455607563-ad6193f76b17?auto=format&fit=crop&w=800&q=80",
-    description: "Soft pink organza layered sharara with mirror work detailing."
+    description: "Soft pink organza layered sharara with mirror work detailing.",
   },
   {
     id: 6,
@@ -70,7 +70,7 @@ export const products: Product[] = [
     subCategory: "Salwar Kameez",
     image: "https://images.unsplash.com/photo-1583391733958-d25e07fac062?auto=format&fit=crop&w=800&q=80",
     badge: "New Arrival",
-    description: "Rich emerald green pure silk suit with a contrast Banarasi dupatta."
+    description: "Rich emerald green pure silk suit with a contrast Banarasi dupatta.",
   },
   {
     id: 7,
@@ -79,7 +79,7 @@ export const products: Product[] = [
     category: "Kids",
     subCategory: "Boys Partywear",
     image: "https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&w=800&q=80",
-    description: "Comfortable and stylish cotton silk kurta set for boys."
+    description: "Comfortable and stylish cotton silk kurta set for boys.",
   },
   {
     id: 8,
@@ -88,8 +88,49 @@ export const products: Product[] = [
     category: "Kids",
     subCategory: "Girls Partywear",
     image: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=800&q=80",
-    description: "Fairy-tale gown with delicate sequins and a soft tulle skirt."
-  }
+    description: "Fairy-tale gown with delicate sequins and a soft tulle skirt.",
+  },
+  {
+    id: 15,
+    title: "Cobalt Silk Nehru Jacket Set",
+    price: 24500,
+    originalPrice: 28000,
+    category: "Men's Ethnic",
+    subCategory: "Nehru Jacket",
+    image: "https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?auto=format&fit=crop&w=800&q=80",
+    badge: "New Arrival",
+    description: "Rich cobalt blue silk nehru jacket paired with matching churidar.",
+  },
+  {
+    id: 16,
+    title: "Sandalwood Linen Kurta Set",
+    price: 12000,
+    category: "Men's Ethnic",
+    subCategory: "Kurta Set",
+    image: "https://images.unsplash.com/photo-1604349132657-34a7b3a2e3e3?auto=format&fit=crop&w=800&q=80",
+    description: "Breezy sandalwood linen kurta ideal for summer celebrations.",
+  },
+  {
+    id: 17,
+    title: "Mini Princess Lehenga",
+    price: 6999,
+    originalPrice: 8500,
+    category: "Kids",
+    subCategory: "Girls Partywear",
+    image: "https://images.unsplash.com/photo-1596455607563-ad6193f76b17?auto=format&fit=crop&w=800&q=80",
+    badge: "Bestseller",
+    description: "Dreamy pastel lehenga with embroidered border for little celebrations.",
+  },
+  {
+    id: 18,
+    title: "Royal Navy Sherwani Set — Boys",
+    price: 5999,
+    category: "Kids",
+    subCategory: "Boys Partywear",
+    image: "https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&w=800&q=80",
+    badge: "New Arrival",
+    description: "Miniature sherwani set in navy blue for the little gentleman.",
+  },
 ];
 
 export const bestsellers: Product[] = [
@@ -102,7 +143,7 @@ export const bestsellers: Product[] = [
     subCategory: "Saree",
     image: "https://images.unsplash.com/photo-1617627143233-1b3e0f13f68b?auto=format&fit=crop&w=800&q=80",
     badge: "Bestseller",
-    description: "Handwoven Banarasi silk in rich crimson with golden zari motifs."
+    description: "Handwoven Banarasi silk in rich crimson with golden zari motifs.",
   },
   {
     id: 10,
@@ -112,7 +153,7 @@ export const bestsellers: Product[] = [
     subCategory: "Gown",
     image: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=800&q=80",
     badge: "New Arrival",
-    description: "Floor-length Anarkali in peacock blue with intricate thread work."
+    description: "Floor-length Anarkali in peacock blue with intricate thread work.",
   },
   {
     id: 11,
@@ -123,7 +164,7 @@ export const bestsellers: Product[] = [
     subCategory: "Lehenga",
     image: "https://images.unsplash.com/photo-1609803384069-19f3f09571c4?auto=format&fit=crop&w=800&q=80",
     badge: "Bestseller",
-    description: "Lightweight tissue lehenga in champagne with gold sequence border."
+    description: "Lightweight tissue lehenga in champagne with gold sequence border.",
   },
   {
     id: 12,
@@ -132,7 +173,7 @@ export const bestsellers: Product[] = [
     category: "Men's Ethnic",
     subCategory: "Kurta Set",
     image: "https://images.unsplash.com/photo-1604349132657-34a7b3a2e3e3?auto=format&fit=crop&w=800&q=80",
-    description: "Deep sangria velvet kurta paired with churidar and contrast dupatta."
+    description: "Deep sangria velvet kurta paired with churidar and contrast dupatta.",
   },
   {
     id: 13,
@@ -143,7 +184,7 @@ export const bestsellers: Product[] = [
     subCategory: "Blouse",
     image: "https://images.unsplash.com/photo-1619510563919-82d67f44ce49?auto=format&fit=crop&w=800&q=80",
     badge: "New Arrival",
-    description: "Hand-embroidered ivory blouse with pearl and cutwork detailing."
+    description: "Hand-embroidered ivory blouse with pearl and cutwork detailing.",
   },
   {
     id: 14,
@@ -153,6 +194,6 @@ export const bestsellers: Product[] = [
     subCategory: "Sherwani",
     image: "https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?auto=format&fit=crop&w=800&q=80",
     badge: "Bestseller",
-    description: "Contemporary dhoti-sherwani set in off-white with gold accents."
+    description: "Contemporary dhoti-sherwani set in off-white with gold accents.",
   },
 ];

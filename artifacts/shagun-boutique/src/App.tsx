@@ -45,8 +45,8 @@ function App() {
           <main>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/women" element={<CategoryPage />} />
-              <Route path="/women/salwar-kameez" element={<SubcategoryPage />} />
+              <Route path="/collections/:categoryId" element={<CategoryPage />} />
+              <Route path="/collections/:categoryId/:subcategoryId" element={<SubcategoryPage />} />
               <Route path="/profile" element={<UserProfile />} />
             </Routes>
           </main>

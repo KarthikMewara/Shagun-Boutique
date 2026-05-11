@@ -1,32 +1,34 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
-import { ChevronDown, Heart, SlidersHorizontal, X } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
+import { ChevronDown, Heart, SlidersHorizontal, X, ArrowRight } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { products, bestsellers, type Product } from "../data/products";
+import { categorySlugMap, subCategorySlugMap } from "../data/categories";
 
-const subProducts = [
-  { id: 101, title: "Emerald Silk Salwar Kameez", price: 16500, originalPrice: 19000, image: "https://images.unsplash.com/photo-1583391733958-d25e07fac062?auto=format&fit=crop&w=600&q=80", badge: "New Arrival" },
-  { id: 102, title: "Ivory Organza Suit Set", price: 22000, image: "https://images.unsplash.com/photo-1596455607563-ad6193f76b17?auto=format&fit=crop&w=600&q=80", badge: "Bestseller" },
-  { id: 103, title: "Dusty Rose Cotton Kurta", price: 8999, originalPrice: 11000, image: "https://images.unsplash.com/photo-1617627143233-1b3e0f13f68b?auto=format&fit=crop&w=600&q=80" },
-  { id: 104, title: "Royal Blue Georgette Set", price: 18500, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80", badge: "New Arrival" },
-  { id: 105, title: "Burgundy Banarasi Kurta", price: 14000, originalPrice: 17000, image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80" },
-  { id: 106, title: "Marigold Chanderi Suit", price: 12500, image: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=600&q=80", badge: "Bestseller" },
+const allProducts = [...products, ...bestsellers];
+
+const fallbackProducts = [
+  { id: 101, title: "Emerald Silk Salwar Kameez", price: 16500, originalPrice: 19000, image: "https://images.unsplash.com/photo-1583391733958-d25e07fac062?auto=format&fit=crop&w=600&q=80", badge: "New Arrival", subCategory: "Salwar Kameez" },
+  { id: 102, title: "Ivory Organza Suit Set", price: 22000, image: "https://images.unsplash.com/photo-1596455607563-ad6193f76b17?auto=format&fit=crop&w=600&q=80", badge: "Bestseller", subCategory: "Sharara" },
+  { id: 103, title: "Dusty Rose Cotton Kurta", price: 8999, originalPrice: 11000, image: "https://images.unsplash.com/photo-1617627143233-1b3e0f13f68b?auto=format&fit=crop&w=600&q=80", subCategory: "Salwar Kameez" },
+  { id: 104, title: "Royal Blue Georgette Set", price: 18500, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80", badge: "New Arrival", subCategory: "Salwar Kameez" },
+  { id: 105, title: "Burgundy Banarasi Kurta", price: 14000, originalPrice: 17000, image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80", subCategory: "Salwar Kameez" },
+  { id: 106, title: "Marigold Chanderi Suit", price: 12500, image: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=600&q=80", badge: "Bestseller", subCategory: "Salwar Kameez" },
 ];
 
 const filters = [
-  {
-    label: "Price Range",
-    options: ["Under ₹10,000", "₹10,000 – ₹20,000", "₹20,000 – ₹40,000", "Above ₹40,000"],
-  },
-  {
-    label: "Color",
-    options: ["Ivory / White", "Emerald Green", "Burgundy / Wine", "Royal Blue", "Rose / Pink", "Marigold"],
-  },
-  {
-    label: "Fabric",
-    options: ["Silk", "Cotton", "Georgette", "Chanderi", "Organza", "Crepe"],
-  },
+  { label: "Price Range", options: ["Under ₹10,000", "₹10,000 – ₹20,000", "₹20,000 – ₹40,000", "Above ₹40,000"] },
+  { label: "Color", options: ["Ivory / White", "Emerald Green", "Burgundy / Wine", "Royal Blue", "Rose / Pink", "Marigold"] },
+  { label: "Fabric", options: ["Silk", "Cotton", "Georgette", "Chanderi", "Organza", "Crepe"] },
 ];
+
+function toTitleCase(slug: string) {
+  return slug
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+}
 
 function AccordionFilter({ label, options }: { label: string; options: string[] }) {
   const [open, setOpen] = useState(label === "Price Range");
@@ -39,9 +41,7 @@ function AccordionFilter({ label, options }: { label: string; options: string[] 
         className="flex items-center justify-between w-full text-left group"
       >
         <span className="text-sm font-medium text-foreground tracking-wide">{label}</span>
-        <ChevronDown
-          className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
-        />
+        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
       </button>
       <AnimatePresence>
         {open && (
@@ -54,13 +54,13 @@ function AccordionFilter({ label, options }: { label: string; options: string[] 
           >
             <div className="pt-3 flex flex-col gap-2">
               {options.map((opt) => (
-                <label key={opt} className="flex items-center gap-3 group/opt">
+                <label key={opt} className="flex items-center gap-3 group/opt cursor-pointer">
                   <input
                     type="checkbox"
                     checked={selected.includes(opt)}
                     onChange={() =>
-                      setSelected(prev =>
-                        prev.includes(opt) ? prev.filter(o => o !== opt) : [...prev, opt]
+                      setSelected((prev) =>
+                        prev.includes(opt) ? prev.filter((o) => o !== opt) : [...prev, opt]
                       )
                     }
                     className="w-4 h-4 border border-gray-300 rounded-sm accent-primary"
@@ -79,44 +79,75 @@ function AccordionFilter({ label, options }: { label: string; options: string[] 
 }
 
 export default function SubcategoryPage() {
+  const { categoryId = "women", subcategoryId = "" } = useParams<{
+    categoryId: string;
+    subcategoryId: string;
+  }>();
+
   const { addToCart, openCart } = useCart();
   const [wishlist, setWishlist] = useState<Record<number, boolean>>({});
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  const toggleWishlist = (id: number) => setWishlist(prev => ({ ...prev, [id]: !prev[id] }));
+  const toggleWishlist = (id: number) => setWishlist((prev) => ({ ...prev, [id]: !prev[id] }));
 
   const formatPrice = (price: number) =>
     new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(price);
 
-  const handleAddToCart = (product: typeof subProducts[number]) => {
-    addToCart({ id: product.id, title: product.title, subCategory: "Salwar Kameez", price: product.price, image: product.image });
+  const pageTitle = toTitleCase(subcategoryId);
+  const categoryLabel = categorySlugMap[categoryId];
+  const subCategoryLabel = subCategorySlugMap[subcategoryId];
+
+  const filteredProducts: Product[] = categoryLabel && subCategoryLabel
+    ? allProducts.filter(
+        (p) => p.category === categoryLabel && p.subCategory === subCategoryLabel
+      )
+    : [];
+
+  const displayProducts = filteredProducts.length > 0 ? filteredProducts : fallbackProducts;
+
+  const handleAddToCart = (product: (typeof displayProducts)[number]) => {
+    addToCart({ id: product.id, title: product.title, subCategory: subCategoryLabel || pageTitle, price: product.price, image: product.image });
     openCart();
   };
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] pt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Breadcrumb + Header */}
         <div className="mb-8">
           <nav className="flex items-center gap-2 text-xs text-gray-400 uppercase tracking-widest mb-4">
             <Link to="/" className="hover:text-primary transition-colors">Home</Link>
             <span>/</span>
-            <Link to="/women" className="hover:text-primary transition-colors">Women</Link>
+            <Link to={`/collections/${categoryId}`} className="hover:text-primary transition-colors capitalize">
+              {categoryId}
+            </Link>
             <span>/</span>
-            <span className="text-foreground">Salwar Kameez</span>
+            <span className="text-foreground">{pageTitle}</span>
           </nav>
+
           <div className="flex items-end justify-between border-b border-gray-200 pb-5">
             <div>
-              <h1 className="text-3xl md:text-4xl font-serif text-foreground">Salwar Kameez</h1>
-              <p className="text-gray-400 font-light mt-1 text-sm">{subProducts.length} styles available</p>
+              <h1 className="text-3xl md:text-4xl font-serif text-foreground">{pageTitle}</h1>
+              <p className="text-gray-400 font-light mt-1 text-sm">
+                {displayProducts.length} styles available
+              </p>
             </div>
-            <button
-              onClick={() => setMobileFiltersOpen(true)}
-              className="md:hidden flex items-center gap-2 text-sm text-foreground border border-gray-200 px-4 py-2"
-            >
-              <SlidersHorizontal className="w-4 h-4" />
-              Filters
-            </button>
+            <div className="flex items-center gap-3">
+              <Link
+                to={`/collections/${categoryId}`}
+                className="hidden md:flex items-center gap-1.5 text-xs text-gray-400 hover:text-primary transition-colors tracking-widest uppercase"
+              >
+                ← Back to {toTitleCase(categoryId)}
+              </Link>
+              <button
+                onClick={() => setMobileFiltersOpen(true)}
+                className="md:hidden flex items-center gap-2 text-sm text-foreground border border-gray-200 px-4 py-2"
+              >
+                <SlidersHorizontal className="w-4 h-4" />
+                Filters
+              </button>
+            </div>
           </div>
         </div>
 
@@ -127,7 +158,7 @@ export default function SubcategoryPage() {
               <h3 className="text-xs uppercase tracking-widest text-gray-400 font-semibold mb-2 pb-3 border-b border-gray-100">
                 Filter By
               </h3>
-              {filters.map(f => (
+              {filters.map((f) => (
                 <AccordionFilter key={f.label} label={f.label} options={f.options} />
               ))}
             </div>
@@ -157,7 +188,7 @@ export default function SubcategoryPage() {
                       <X className="w-5 h-5 text-gray-400" />
                     </button>
                   </div>
-                  {filters.map(f => (
+                  {filters.map((f) => (
                     <AccordionFilter key={f.label} label={f.label} options={f.options} />
                   ))}
                 </motion.div>
@@ -172,7 +203,7 @@ export default function SubcategoryPage() {
             transition={{ duration: 0.5 }}
             className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 content-start"
           >
-            {subProducts.map((product, i) => (
+            {displayProducts.map((product, i) => (
               <motion.div
                 key={product.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -187,7 +218,7 @@ export default function SubcategoryPage() {
                     alt={product.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  {product.badge && (
+                  {"badge" in product && product.badge && (
                     <div className="absolute top-3 left-3 bg-white/90 text-foreground text-[10px] uppercase tracking-widest font-semibold px-3 py-1">
                       {product.badge}
                     </div>
@@ -207,17 +238,28 @@ export default function SubcategoryPage() {
                     </button>
                   </div>
                 </div>
-                <span className="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Salwar Kameez</span>
+                <span className="text-[10px] text-gray-400 uppercase tracking-wider mb-1">{pageTitle}</span>
                 <h3 className="font-serif text-base text-foreground leading-snug mb-1 line-clamp-1">{product.title}</h3>
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-sm text-foreground">{formatPrice(product.price)}</span>
-                  {product.originalPrice && (
+                  {"originalPrice" in product && product.originalPrice && (
                     <span className="text-xs text-gray-400 line-through">{formatPrice(product.originalPrice)}</span>
                   )}
                 </div>
               </motion.div>
             ))}
           </motion.div>
+        </div>
+
+        {/* Back to category CTA */}
+        <div className="pb-16 text-center border-t border-gray-100 pt-10">
+          <Link
+            to={`/collections/${categoryId}`}
+            className="inline-flex items-center gap-2 text-xs tracking-widest uppercase text-gray-500 hover:text-primary transition-colors"
+          >
+            <ArrowRight className="w-3.5 h-3.5 rotate-180" />
+            Back to {toTitleCase(categoryId)} Collections
+          </Link>
         </div>
       </div>
     </div>

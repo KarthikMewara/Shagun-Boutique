@@ -13,12 +13,6 @@ export default function Navbar() {
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const categoryRoutes: Record<string, string> = {
-    "Women": "/women",
-    "Men's Ethnic": "/men",
-    "Kids": "/kids",
-  };
-
   return (
     <>
       <header
@@ -59,7 +53,10 @@ export default function Navbar() {
               onMouseEnter={() => setIsMegaMenuOpen(true)}
               onMouseLeave={() => setIsMegaMenuOpen(false)}
             >
-              <Link to="/women" className="text-sm font-medium tracking-wide hover:text-primary transition-colors pb-2">
+              <Link
+                to="/collections/women"
+                className="text-sm font-medium tracking-wide hover:text-primary transition-colors pb-2"
+              >
                 Collections
               </Link>
 
@@ -75,7 +72,7 @@ export default function Navbar() {
                     {megaMenuCategories.map((category) => (
                       <div key={category.name} className="flex flex-col">
                         <Link
-                          to={categoryRoutes[category.name] ?? "#"}
+                          to={`/collections/${category.slug}`}
                           className="font-serif text-lg mb-4 text-primary hover:text-primary/70 transition-colors"
                           onClick={() => setIsMegaMenuOpen(false)}
                         >
@@ -83,17 +80,13 @@ export default function Navbar() {
                         </Link>
                         <ul className="space-y-3">
                           {category.items.map((item) => (
-                            <li key={item}>
+                            <li key={item.slug}>
                               <Link
-                                to={
-                                  category.name === "Women"
-                                    ? `/women/${item.toLowerCase().replace(/\s+/g, "-")}`
-                                    : "#"
-                                }
+                                to={`/collections/${category.slug}/${item.slug}`}
                                 onClick={() => setIsMegaMenuOpen(false)}
                                 className="text-sm text-gray-600 hover:text-primary transition-colors"
                               >
-                                {item}
+                                {item.label}
                               </Link>
                             </li>
                           ))}
@@ -165,7 +158,11 @@ export default function Navbar() {
               </div>
 
               <nav className="flex flex-col gap-6">
-                <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium border-b border-gray-200 pb-2">
+                <Link
+                  to="/"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-lg font-medium border-b border-gray-200 pb-2"
+                >
                   Home
                 </Link>
 
@@ -175,7 +172,7 @@ export default function Navbar() {
                     {megaMenuCategories.map((category) => (
                       <div key={category.name} className="flex flex-col gap-2">
                         <Link
-                          to={categoryRoutes[category.name] ?? "#"}
+                          to={`/collections/${category.slug}`}
                           onClick={() => setIsMobileMenuOpen(false)}
                           className="font-serif text-md text-foreground hover:text-primary transition-colors"
                         >
@@ -183,17 +180,13 @@ export default function Navbar() {
                         </Link>
                         <ul className="space-y-2 pl-2 border-l border-gray-200">
                           {category.items.map((item) => (
-                            <li key={item}>
+                            <li key={item.slug}>
                               <Link
-                                to={
-                                  category.name === "Women"
-                                    ? `/women/${item.toLowerCase().replace(/\s+/g, "-")}`
-                                    : "#"
-                                }
+                                to={`/collections/${category.slug}/${item.slug}`}
                                 onClick={() => setIsMobileMenuOpen(false)}
                                 className="text-sm text-gray-600 hover:text-primary"
                               >
-                                {item}
+                                {item.label}
                               </Link>
                             </li>
                           ))}
@@ -203,10 +196,18 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium border-b border-gray-200 pb-2">
+                <Link
+                  to="/profile"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-lg font-medium border-b border-gray-200 pb-2"
+                >
                   My Account
                 </Link>
-                <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium border-b border-gray-200 pb-2">
+                <Link
+                  to="/"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-lg font-medium border-b border-gray-200 pb-2"
+                >
                   Contact
                 </Link>
               </nav>
