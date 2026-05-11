@@ -3,19 +3,14 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
-      {/* Background Image with Parallax feel */}
-      <div className="absolute inset-0 z-0">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=2000&q=80')",
-            backgroundPosition: "50% 30%",
-          }}
-        />
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />
-      </div>
+    <section
+      className="relative h-screen w-full flex items-center justify-center bg-fixed bg-cover bg-center"
+      style={{
+        backgroundImage: "url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=2000&q=80')",
+      }}
+    >
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center flex flex-col items-center">
