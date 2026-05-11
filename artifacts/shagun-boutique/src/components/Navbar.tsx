@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, User, ShoppingBag, Menu, X } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useScrollY } from "../hooks/use-scroll-y";
 import { useCart } from "../context/CartContext";
 import { megaMenuCategories } from "../data/categories";
@@ -12,7 +12,6 @@ export default function Navbar() {
   const { cartCount, openCart } = useCart();
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navigate = useNavigate();
 
   const categoryRoutes: Record<string, string> = {
     "Women": "/women",
@@ -119,12 +118,12 @@ export default function Navbar() {
             <button className="hover:text-primary transition-colors">
               <Search className="w-5 h-5" strokeWidth={1.5} />
             </button>
-            <button
-              onClick={() => navigate("/profile")}
+            <Link
+              to="/profile"
               className="hidden md:block hover:text-primary transition-colors"
             >
               <User className="w-5 h-5" strokeWidth={1.5} />
-            </button>
+            </Link>
             <button
               onClick={openCart}
               className="relative hover:text-primary transition-colors"
