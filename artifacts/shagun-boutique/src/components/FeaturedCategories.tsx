@@ -50,7 +50,7 @@ const itemVariants = {
 export default function FeaturedCategories() {
   return (
     <section className="py-20 md:py-32 bg-background">
-      <div className="container mx-auto px-4 md:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-serif text-foreground mb-4">Shop by Category</h2>
           <p className="text-gray-500 max-w-2xl mx-auto font-light">Explore our handpicked selections tailored for every celebration.</p>

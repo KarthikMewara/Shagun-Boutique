@@ -18,7 +18,7 @@ export default function MidPageVideoBanner() {
 
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/30" />
 
-      <div className="relative z-10 container mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center gap-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col md:flex-row items-center gap-12">
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}

@@ -11,7 +11,7 @@ const pressItems = [
 export default function PressMedia() {
   return (
     <section className="py-24 md:py-32 bg-[#0D0B08] text-white overflow-hidden">
-      <div className="container mx-auto px-4 md:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -59,7 +59,7 @@ export default function PressMedia() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
             className="relative"
           >
-            <div className="relative aspect-video rounded-sm overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center group cursor-pointer">
+            <div className="relative aspect-video rounded-sm overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center group">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5" />
 
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10">
