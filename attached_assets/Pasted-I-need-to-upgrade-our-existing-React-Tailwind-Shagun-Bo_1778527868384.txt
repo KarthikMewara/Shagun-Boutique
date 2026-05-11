@@ -1,0 +1,53 @@
+I need to upgrade our existing React + Tailwind "Shagun Boutique" homepage. Please generate the code for the following new components and integrate them into App.jsx to make the page longer, more dynamic, and highly focused on building trust.
+
+1. NEW COMPONENT: CustomCursor.jsx
+
+Use framer-motion to create a custom mouse cursor.
+
+It should be a small, elegant Champagne Gold dot (#D4AF37) that follows the mouse pointer.
+
+Add event listeners so that when the user hovers over a button, a link, or a product card, the gold dot scales up by 3x and becomes semi-transparent (glassmorphism effect).
+
+Hide the default browser cursor using a global CSS rule in index.css.
+
+2. NEW COMPONENT: MidPageVideoBanner.jsx
+
+A full-width (w-full), medium-height (h-[60vh]) section.
+
+It must feature a muted, looping, autoplaying <video> in the background with object-cover. Use a free placeholder fashion video URL from Pexels or Coverr.
+
+Add a dark gradient overlay. Place elegant white text over it: "The Shagun Heritage" with a placeholder paragraph for "Our Story" that we will fill in later.
+
+3. NEW COMPONENT: Bestsellers.jsx (To show more clothes)
+
+Create a masonry-style or staggered grid to display 6 more items from our data.js file.
+
+Call the section "Curated For You".
+
+4. NEW COMPONENT: PressMedia.jsx (Building Trust)
+
+A clean, minimalist section titled "In The Spotlight".
+
+Include text mentioning: "As featured on leading Kannada News Channels."
+
+Include a designated UI box (like a sleek video player mockup) where we can later embed the edited news footage about our brand.
+
+5. NEW COMPONENT: Testimonials.jsx
+
+Title it "Client Diaries".
+
+Use a clean, horizontal scrolling layout or a 3-column grid featuring 3 premium-looking text reviews (e.g., "The Lehenga was absolutely stunning for my sister's wedding", etc.) with 5-star icons.
+
+UPDATED App.jsx LAYOUT ORDER:
+Please update App.jsx to render in exactly this order:
+<CustomCursor />
+<Navbar />
+<Hero />
+<ShopByCategory />
+<NewArrivals />
+<MidPageVideoBanner /> (Breaks up the page with video)
+<Bestsellers /> (Shows more clothes)
+<PressMedia /> (Kannada News feature)
+<Testimonials /> (Reviews)
+<DeliveryPolicy />
+<Footer />

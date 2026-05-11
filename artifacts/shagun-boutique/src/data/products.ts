@@ -91,3 +91,68 @@ export const products: Product[] = [
     description: "Fairy-tale gown with delicate sequins and a soft tulle skirt."
   }
 ];
+
+export const bestsellers: Product[] = [
+  {
+    id: 9,
+    title: "Crimson Banarasi Saree",
+    price: 34500,
+    originalPrice: 40000,
+    category: "Women",
+    subCategory: "Saree",
+    image: "https://images.unsplash.com/photo-1617627143233-1b3e0f13f68b?auto=format&fit=crop&w=800&q=80",
+    badge: "Bestseller",
+    description: "Handwoven Banarasi silk in rich crimson with golden zari motifs."
+  },
+  {
+    id: 10,
+    title: "Peacock Blue Anarkali Gown",
+    price: 26999,
+    category: "Women",
+    subCategory: "Gown",
+    image: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=800&q=80",
+    badge: "New Arrival",
+    description: "Floor-length Anarkali in peacock blue with intricate thread work."
+  },
+  {
+    id: 11,
+    title: "Champagne Tissue Lehenga",
+    price: 58000,
+    originalPrice: 68000,
+    category: "Women",
+    subCategory: "Lehenga",
+    image: "https://images.unsplash.com/photo-1609803384069-19f3f09571c4?auto=format&fit=crop&w=800&q=80",
+    badge: "Bestseller",
+    description: "Lightweight tissue lehenga in champagne with gold sequence border."
+  },
+  {
+    id: 12,
+    title: "Sangria Velvet Kurta Set",
+    price: 21000,
+    category: "Men's Ethnic",
+    subCategory: "Kurta Set",
+    image: "https://images.unsplash.com/photo-1604349132657-34a7b3a2e3e3?auto=format&fit=crop&w=800&q=80",
+    description: "Deep sangria velvet kurta paired with churidar and contrast dupatta."
+  },
+  {
+    id: 13,
+    title: "Ivory Pearl Blouse",
+    price: 9500,
+    originalPrice: 12000,
+    category: "Women",
+    subCategory: "Blouse",
+    image: "https://images.unsplash.com/photo-1619510563919-82d67f44ce49?auto=format&fit=crop&w=800&q=80",
+    badge: "New Arrival",
+    description: "Hand-embroidered ivory blouse with pearl and cutwork detailing."
+  },
+  {
+    id: 14,
+    title: "Festival Dhoti Sherwani Set",
+    price: 42000,
+    category: "Men's Ethnic",
+    subCategory: "Sherwani",
+    image: "https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?auto=format&fit=crop&w=800&q=80",
+    badge: "Bestseller",
+    description: "Contemporary dhoti-sherwani set in off-white with gold accents."
+  },
+];
