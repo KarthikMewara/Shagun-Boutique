@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, User, ShoppingBag, Menu, X } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useScrollY } from "../hooks/use-scroll-y";
 import { useCart } from "../context/CartContext";
 import { megaMenuCategories } from "../data/categories";
@@ -8,9 +9,16 @@ import { megaMenuCategories } from "../data/categories";
 export default function Navbar() {
   const scrollY = useScrollY();
   const isScrolled = scrollY > 20;
-  const { cartCount } = useCart();
+  const { cartCount, openCart } = useCart();
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const categoryRoutes: Record<string, string> = {
+    "Women": "/women",
+    "Men's Ethnic": "/men",
+    "Kids": "/kids",
+  };
 
   return (
     <>
@@ -21,10 +29,10 @@ export default function Navbar() {
             : "bg-transparent py-5"
         }`}
       >
-        <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
-          
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+
           {/* Mobile Menu Toggle */}
-          <button 
+          <button
             className="md:hidden p-2 -ml-2"
             onClick={() => setIsMobileMenuOpen(true)}
           >
@@ -33,22 +41,29 @@ export default function Navbar() {
 
           {/* Logo */}
           <div className="flex-1 md:flex-none text-center md:text-left">
-            <a href="#" className={`font-serif text-2xl md:text-3xl tracking-wide ${isScrolled ? "text-foreground" : "text-white"}`}>
+            <Link
+              to="/"
+              className={`font-serif text-2xl md:text-3xl tracking-wide ${isScrolled ? "text-foreground" : "text-white"}`}
+            >
               Shagun Boutique
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Nav */}
           <nav className={`hidden md:flex items-center gap-8 ${isScrolled ? "text-foreground" : "text-white/90"}`}>
-            <a href="#" className="text-sm font-medium tracking-wide hover:text-primary transition-colors">Home</a>
-            <div 
+            <Link to="/" className="text-sm font-medium tracking-wide hover:text-primary transition-colors">
+              Home
+            </Link>
+
+            <div
               className="relative py-2"
               onMouseEnter={() => setIsMegaMenuOpen(true)}
               onMouseLeave={() => setIsMegaMenuOpen(false)}
             >
-              <a href="#" className="text-sm font-medium tracking-wide hover:text-primary transition-colors pb-2">Collections</a>
-              
-              {/* Mega Menu */}
+              <Link to="/women" className="text-sm font-medium tracking-wide hover:text-primary transition-colors pb-2">
+                Collections
+              </Link>
+
               <AnimatePresence>
                 {isMegaMenuOpen && (
                   <motion.div
@@ -56,15 +71,31 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 w-screen max-w-4xl bg-[#FAF8F5] text-foreground shadow-xl border border-gray-100 p-8 flex justify-around rounded-b-sm cursor-default"
+                    className="absolute top-full left-1/2 -translate-x-1/2 w-screen max-w-3xl bg-[#FAF8F5] text-foreground shadow-xl border border-gray-100 p-8 flex justify-around rounded-b-sm"
                   >
                     {megaMenuCategories.map((category) => (
                       <div key={category.name} className="flex flex-col">
-                        <h3 className="font-serif text-lg mb-4 text-primary">{category.name}</h3>
+                        <Link
+                          to={categoryRoutes[category.name] ?? "#"}
+                          className="font-serif text-lg mb-4 text-primary hover:text-primary/70 transition-colors"
+                          onClick={() => setIsMegaMenuOpen(false)}
+                        >
+                          {category.name}
+                        </Link>
                         <ul className="space-y-3">
                           {category.items.map((item) => (
                             <li key={item}>
-                              <a href="#" className="text-sm text-gray-600 hover:text-primary transition-colors">{item}</a>
+                              <Link
+                                to={
+                                  category.name === "Women"
+                                    ? `/women/${item.toLowerCase().replace(/\s+/g, "-")}`
+                                    : "#"
+                                }
+                                onClick={() => setIsMegaMenuOpen(false)}
+                                className="text-sm text-gray-600 hover:text-primary transition-colors"
+                              >
+                                {item}
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -74,22 +105,33 @@ export default function Navbar() {
                 )}
               </AnimatePresence>
             </div>
-            <a href="#" className="text-sm font-medium tracking-wide hover:text-primary transition-colors">About</a>
-            <a href="#" className="text-sm font-medium tracking-wide hover:text-primary transition-colors">Contact</a>
+
+            <Link to="/" className="text-sm font-medium tracking-wide hover:text-primary transition-colors">
+              About
+            </Link>
+            <Link to="/" className="text-sm font-medium tracking-wide hover:text-primary transition-colors">
+              Contact
+            </Link>
           </nav>
 
           {/* Icons */}
           <div className={`flex items-center gap-4 md:gap-6 ${isScrolled ? "text-foreground" : "text-white"}`}>
             <button className="hover:text-primary transition-colors">
-              <Search className="w-5 h-5" />
+              <Search className="w-5 h-5" strokeWidth={1.5} />
             </button>
-            <button className="hidden md:block hover:text-primary transition-colors">
-              <User className="w-5 h-5" />
+            <button
+              onClick={() => navigate("/profile")}
+              className="hidden md:block hover:text-primary transition-colors"
+            >
+              <User className="w-5 h-5" strokeWidth={1.5} />
             </button>
-            <button className="relative hover:text-primary transition-colors">
-              <ShoppingBag className="w-5 h-5" />
+            <button
+              onClick={openCart}
+              className="relative hover:text-primary transition-colors"
+            >
+              <ShoppingBag className="w-5 h-5" strokeWidth={1.5} />
               {cartCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-primary text-primary-foreground text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                <span className="absolute -top-1.5 -right-1.5 bg-primary text-[#1A1A1A] text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                   {cartCount}
                 </span>
               )}
@@ -122,20 +164,38 @@ export default function Navbar() {
                   <X className="w-6 h-6" />
                 </button>
               </div>
-              
+
               <nav className="flex flex-col gap-6">
-                <a href="#" className="text-lg font-medium border-b border-gray-200 pb-2">Home</a>
-                
+                <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium border-b border-gray-200 pb-2">
+                  Home
+                </Link>
+
                 <div className="flex flex-col gap-4">
                   <span className="text-lg font-medium text-primary">Collections</span>
                   <div className="pl-4 flex flex-col gap-6">
                     {megaMenuCategories.map((category) => (
                       <div key={category.name} className="flex flex-col gap-2">
-                        <span className="font-serif text-md text-foreground">{category.name}</span>
+                        <Link
+                          to={categoryRoutes[category.name] ?? "#"}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="font-serif text-md text-foreground hover:text-primary transition-colors"
+                        >
+                          {category.name}
+                        </Link>
                         <ul className="space-y-2 pl-2 border-l border-gray-200">
                           {category.items.map((item) => (
                             <li key={item}>
-                              <a href="#" className="text-sm text-gray-600 hover:text-primary">{item}</a>
+                              <Link
+                                to={
+                                  category.name === "Women"
+                                    ? `/women/${item.toLowerCase().replace(/\s+/g, "-")}`
+                                    : "#"
+                                }
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="text-sm text-gray-600 hover:text-primary"
+                              >
+                                {item}
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -144,8 +204,12 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                <a href="#" className="text-lg font-medium border-b border-gray-200 pb-2">About</a>
-                <a href="#" className="text-lg font-medium border-b border-gray-200 pb-2">Contact</a>
+                <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium border-b border-gray-200 pb-2">
+                  My Account
+                </Link>
+                <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium border-b border-gray-200 pb-2">
+                  Contact
+                </Link>
               </nav>
             </motion.div>
           </>
