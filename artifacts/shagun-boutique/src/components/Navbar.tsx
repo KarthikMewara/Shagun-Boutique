@@ -18,8 +18,8 @@ export default function Navbar() {
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-[#FAF8F5]/95 backdrop-blur-md border-b border-gray-200 shadow-sm py-4"
-            : "bg-transparent py-4"
+            ? "bg-[#FAF8F5]/95 backdrop-blur-md border-b border-gray-200 shadow-sm py-1.5"
+            : "bg-transparent py-1.5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -40,7 +40,7 @@ export default function Navbar() {
               <img
                 src={isScrolled ? "/shagun-logo.png" : "/shagun-transparent.png"}
                 alt="Shagun Boutique"
-                className="h-10 w-auto object-contain transition-all duration-300"
+                className="h-14 w-auto object-contain transition-all duration-300"
               />
             </Link>
           </div>
