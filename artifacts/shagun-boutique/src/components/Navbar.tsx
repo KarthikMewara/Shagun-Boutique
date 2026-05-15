@@ -34,11 +34,14 @@ export default function Navbar() {
 
           {/* Logo */}
           <div className="flex-1 md:flex-none text-center md:text-left">
-            <Link
-              to="/"
-              className={`font-serif text-2xl md:text-3xl tracking-wide ${isScrolled ? "text-foreground" : "text-white"}`}
-            >
-              Shagun Boutique
+            <Link to="/" className="inline-block">
+              <img
+                src="/shagun-logo.png"
+                alt="Shagun Boutique"
+                className={`h-10 w-auto transition-all duration-300 ${
+                  isScrolled ? "" : "brightness-0 invert"
+                }`}
+              />
             </Link>
           </div>
 
