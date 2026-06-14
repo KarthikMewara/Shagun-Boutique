@@ -1,0 +1,55 @@
+Act as a Senior React Frontend Architect. We are upgrading the "Shagun Boutique" project from a single-page layout to a fully routed multi-page e-commerce frontend.
+
+1. ROUTING & ARCHITECTURE SETUP:
+
+Please install react-router-dom.
+
+Refactor App.jsx to wrap the application in a <BrowserRouter>.
+
+Set up standard <Routes>:
+
+/ -> The existing Homepage components.
+
+/women -> CategoryPage.jsx
+
+/women/salwar-kameez -> SubcategoryPage.jsx
+
+/profile -> UserProfile.jsx
+
+Ensure the Navbar, CustomCursor, and Footer remain outside the <Routes> so they persist across all pages.
+
+2. NEW COMPONENT: CartDrawer.jsx
+
+Do not build a separate cart page. Build a slide-out cart drawer using framer-motion.
+
+When the cart icon in the Navbar is clicked, a dark semi-transparent overlay should cover the screen, and a sleek, white panel should slide in from the right (w-full sm:w-[400px]).
+
+Include dummy cart items, a subtotal, and a Champagne Gold "Secure Checkout" button.
+
+3. NEW COMPONENT: CategoryPage.jsx (Mini-Homepage for /women)
+
+A luxurious landing page.
+
+Top: A high-quality Hero banner (h-[50vh]) with a dark overlay and title "Women's Collection".
+
+Below Hero: An elegant, staggered masonry grid of subcategories (Sarees, Lehengas, Salwar Kameez, Gowns). Each grid item should be a large image with a centered text overlay that slightly zooms on hover.
+
+4. NEW COMPONENT: SubcategoryPage.jsx (Standard E-com layout for /women/salwar-kameez)
+
+Top: A minimalist breadcrumb (Home / Women / Salwar Kameez) and title.
+
+Layout: A CSS Grid with a left sidebar (25% width) and a product grid (75% width).
+
+Sidebar: Sleek accordion-style filters for "Price Range", "Color", and "Fabric" (Silk, Cotton, Georgette).
+
+Product Grid: A clean 3-column layout mapping through 6-9 dummy products from data.js.
+
+5. NEW COMPONENT: UserProfile.jsx (Luxury Dashboard for /profile)
+
+Layout: Left navigation sidebar and a right content area.
+
+Tabs: "Order History", "My Wishlist", "Saved Addresses", "Account Details".
+
+Make the UI feel exclusive—use lots of white space, thin borders (border-neutral-200), and minimalist typography. Build a dummy "Order History" view showing one past order (e.g., "Crimson Silk Saree - Delivered on May 10").
+
+Please generate and implement these new routing structures and components while maintaining our existing premium Ivory, Charcoal, and Champagne Gold styling.

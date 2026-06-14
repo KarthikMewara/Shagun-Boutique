@@ -1,0 +1,39 @@
+Act as a Senior React Architect. We need to scale our e-commerce frontend. Instead of duplicating our CategoryPage and SubcategoryPage for Men and Kids, we need to implement Dynamic Routing so these two master templates handle all categories and subcategories automatically based on the URL.
+
+Please execute the following refactoring:
+
+1. UPDATE ROUTING IN App.tsx:
+
+Change the static /women route to a dynamic route: <Route path="/collections/:categoryId" element={<CategoryPage />} />
+
+Change the static subcategory route to: <Route path="/collections/:categoryId/:subcategoryId" element={<SubcategoryPage />} />
+
+2. REFACTOR CategoryPage.tsx (Dynamic Content Swap):
+
+Import useParams from react-router-dom to read categoryId ('women', 'men', or 'kids').
+
+Create a configuration object named categoryData inside the component that holds the unique text/images for each category.
+
+Women: Title "The Women's Edit", Spotlight Title "The Bridal Trousseau".
+
+Men: Title "The Men's Edit", Spotlight Title "The Royal Groom", Subheadline "Tailored perfection for his biggest day." Update the subcategory carousel to show: Kurta Sets, Sherwanis, Nehru Jackets.
+
+Kids: Title "The Little Royals", Spotlight Title "Festive Playwear", Subheadline "Comfort meets tradition." Update the subcategory carousel to show: Boys Partywear, Girls Lehengas.
+
+Ensure the component dynamically renders the correct text, banners, and filters the "Trending" grid based on the active URL parameter. Handle a 404/fallback if the category doesn't exist.
+
+3. REFACTOR SubcategoryPage.tsx (Dynamic Filtering):
+
+Use useParams() to read both categoryId and subcategoryId.
+
+Dynamically update the Breadcrumbs (e.g., "Home / Men / Sherwanis").
+
+Dynamically format the Page Title based on the subcategoryId (replace dashes with spaces and capitalize).
+
+Update the product grid to map through the products array, filtering ONLY the products where product.category === categoryId and product.subCategory === subcategoryId. (Ensure your mock data in products.ts or data.ts has a few dummy items for men and kids to test this).
+
+4. UPDATE Navbar.tsx LINKS:
+
+Ensure all dropdown links in the Navbar point to the correct new dynamic URLs (e.g., href="/collections/women", href="/collections/men/sherwanis", etc.).
+
+Maintain all our existing luxury Tailwind styling (Ivory, Charcoal, Champagne Gold, and Framer Motion effects). Ensure the transition to dynamic routing does not break the layout.

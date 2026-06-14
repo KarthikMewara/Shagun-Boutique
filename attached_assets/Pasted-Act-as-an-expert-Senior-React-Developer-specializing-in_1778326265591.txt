@@ -1,0 +1,61 @@
+Act as an expert Senior React Developer specializing in high-end e-commerce frontends. I need you to build a complete, production-ready frontend for a premium Indian ethnic wear brand called "Shagun Boutique".
+
+TECH STACK:
+
+Framework: React (Vite)
+
+Styling: Tailwind CSS
+
+Animations: Framer Motion (for scroll animations) + standard Tailwind transitions.
+
+Icons: Lucide-React or React-Icons
+
+DESIGN SYSTEM & VIBE:
+
+Style: Premium, Modern, Elegant, Minimalist.
+
+Color Palette: >     * Backgrounds: Soft Pearl/Ivory (#FAFAFA or bg-neutral-50)
+
+Text: Rich Charcoal (#1A1A1A or text-neutral-900)
+
+Accents/Buttons: Champagne Gold (#D4AF37) or deep elegant colors.
+
+Typography: Playfair Display (for elegant headings) and Inter/Montserrat (for clean body text).
+
+ANIMATION REQUIREMENTS:
+
+Scroll Animations: Use framer-motion to create smooth fade-in-up effects as the user scrolls down to new sections.
+
+Hover Effects: Every single product image must have a subtle zoom effect on hover using Tailwind (overflow-hidden, hover:scale-105, transition-transform duration-500).
+
+Navbar: Must be sleek, sticky at the top, and feature a slight blur/glassmorphism effect (backdrop-blur-md) when scrolling down.
+
+LAYOUT & ARCHITECTURE:
+Create the following components and assemble them in App.jsx:
+
+Navbar Component: >     * Logo in the center or left.
+
+Icons on the right: Search, User Profile, Cart.
+
+Crucial Feature: A sleek, hover-activated dropdown mega-menu for the categories. The categories are:
+
+Women: Salwar, Kamiz, Sarara, Lehenga, Saree, Gown, Blouses
+
+Men's Ethnic: Kurta Set, Sherwanis
+
+Kids: Partywear for Boys, Partywear for Girls
+
+Hero Component: Full viewport height (h-screen). A stunning, high-quality background image (use an Unsplash placeholder for Indian ethnic wear) with a dark overlay, elegant center text ("Elegance Redefined"), and a gold "Shop the Collection" CTA button.
+
+Featured Categories Grid: A beautiful CSS grid showcasing top categories (e.g., Bridal Lehengas, Men's Sherwanis) with text overlays on the images.
+
+New Arrivals (Product Slider/Grid): A grid displaying 4 to 8 product cards using the dummy data.
+
+Premium Footer: Newsletter signup, links, and elegant branding.
+
+DUMMY DATA REQUIREMENT:
+Create a separate file named data.js and export an array of at least 8 realistic product objects covering the categories mentioned above.
+
+Data structure should include: id, title, price (in ₹), category, subCategory, and a realistic placeholder image URL (from Unsplash or Pexels).
+
+Please generate the exact code for App.jsx, the components, the data.js file, and tailwind.config.js (including the custom fonts and colors).
