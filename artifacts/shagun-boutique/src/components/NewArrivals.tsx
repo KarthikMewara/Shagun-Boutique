@@ -42,14 +42,10 @@ export default function NewArrivals() {
   return (
     <section className="py-20 md:py-24 bg-[#FAF8F5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-gray-200 pb-6">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-3">New Arrivals</h2>
-            <p className="text-gray-500 font-light">The latest additions to our heirloom collection.</p>
-          </div>
-          <a href="#" className="mt-4 md:mt-0 text-sm font-medium tracking-wide uppercase hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-1 self-start md:self-auto">
-            View All
-          </a>
+        <div className="text-center mb-12 pb-6 border-b border-gray-200">
+          <p className="text-[10px] text-primary tracking-[0.3em] uppercase font-semibold mb-2">Just In</p>
+          <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-3">New Arrivals</h2>
+          <p className="text-gray-500 font-light">The latest additions to our heirloom collection.</p>
         </div>
 
         <motion.div 

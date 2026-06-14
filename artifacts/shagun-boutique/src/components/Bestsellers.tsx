@@ -30,20 +30,12 @@ export default function Bestsellers() {
   return (
     <section className="py-24 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 border-b border-gray-100 pb-6">
-          <div>
-            <span className="text-primary text-xs tracking-[0.25em] uppercase font-semibold mb-3 block">
-              Handpicked For You
-            </span>
-            <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-2">Curated For You</h2>
-            <p className="text-gray-500 font-light">Pieces our community keeps coming back for.</p>
-          </div>
-          <a
-            href="#"
-            className="mt-4 md:mt-0 text-sm font-medium tracking-wide uppercase hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-1 self-start md:self-auto"
-          >
-            View All
-          </a>
+        <div className="text-center mb-14 pb-6 border-b border-gray-100">
+          <span className="text-primary text-[10px] tracking-[0.3em] uppercase font-semibold mb-3 block">
+            Handpicked For You
+          </span>
+          <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-2">Curated For You</h2>
+          <p className="text-gray-500 font-light">Pieces our community keeps coming back for.</p>
         </div>
 
         <motion.div

@@ -64,7 +64,7 @@ export default function Navbar() {
               onMouseLeave={() => setIsMegaMenuOpen(false)}
             >
               <Link
-                to="/collections/women"
+                to="/collections"
                 className="text-sm font-medium tracking-wide hover:text-primary transition-colors"
               >
                 Collections

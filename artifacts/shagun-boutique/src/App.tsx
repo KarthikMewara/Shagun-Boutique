@@ -17,6 +17,7 @@ import BrandStrip from "./components/BrandStrip";
 
 import CategoryPage from "./pages/CategoryPage";
 import SubcategoryPage from "./pages/SubcategoryPage";
+import CollectionsPage from "./pages/CollectionsPage";
 import UserProfile from "./pages/UserProfile";
 
 function HomePage() {
@@ -45,6 +46,7 @@ function App() {
           <main>
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/collections" element={<CollectionsPage />} />
               <Route path="/collections/:categoryId" element={<CategoryPage />} />
               <Route path="/collections/:categoryId/:subcategoryId" element={<SubcategoryPage />} />
               <Route path="/profile" element={<UserProfile />} />
