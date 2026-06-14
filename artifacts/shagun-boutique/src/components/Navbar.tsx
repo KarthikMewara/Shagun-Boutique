@@ -132,7 +132,7 @@ export default function Navbar() {
               <Search className="w-5 h-5" strokeWidth={1.5} />
             </button>
             <Link
-              to="/profile"
+              to="/login"
               className="hidden md:block hover:text-primary transition-colors"
             >
               <User className="w-5 h-5" strokeWidth={1.5} />

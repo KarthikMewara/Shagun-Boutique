@@ -19,6 +19,8 @@ import CategoryPage from "./pages/CategoryPage";
 import SubcategoryPage from "./pages/SubcategoryPage";
 import CollectionsPage from "./pages/CollectionsPage";
 import UserProfile from "./pages/UserProfile";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 function HomePage() {
   return (
@@ -50,6 +52,8 @@ function App() {
               <Route path="/collections/:categoryId" element={<CategoryPage />} />
               <Route path="/collections/:categoryId/:subcategoryId" element={<SubcategoryPage />} />
               <Route path="/profile" element={<UserProfile />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
             </Routes>
           </main>
           <Footer />
