@@ -1,7 +1,8 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { cartService } from "../services/cartService";
 
 export interface CartItem {
-  id: number;
+  id: number | string;
   title: string;
   subCategory: string;
   price: number;
@@ -11,7 +12,7 @@ export interface CartItem {
 }
 
 export interface WishlistItem {
-  id: number;
+  id: number | string;
   title: string;
   subCategory: string;
   price: number;
@@ -25,89 +26,102 @@ interface CartContextType {
   isCartOpen: boolean;
   wishlistItems: WishlistItem[];
   addToCart: (item?: Partial<CartItem>) => void;
-  removeFromCart: (id: number) => void;
-  updateQuantity: (id: number, quantity: number) => void;
+  removeFromCart: (id: number | string) => void;
+  updateQuantity: (id: number | string, quantity: number) => void;
   openCart: () => void;
   closeCart: () => void;
   addToWishlist: (item: WishlistItem) => void;
-  removeFromWishlist: (id: number) => void;
-  isInWishlist: (id: number) => boolean;
+  removeFromWishlist: (id: number | string) => void;
+  isInWishlist: (id: number | string) => boolean;
 }
-
-const defaultCartItems: CartItem[] = [
-  {
-    id: 1,
-    title: "Gulmohar Silk Lehenga",
-    subCategory: "Lehenga",
-    price: 45999,
-    image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=200&q=80",
-    quantity: 1,
-    size: "M",
-  },
-  {
-    id: 4,
-    title: "Regal Gold Sherwani",
-    subCategory: "Sherwani",
-    price: 65000,
-    image: "https://images.unsplash.com/photo-1559582798-678dfc71cee4?auto=format&fit=crop&w=200&q=80",
-    quantity: 1,
-    size: "L",
-  },
-];
-
-const defaultWishlist: WishlistItem[] = [
-  {
-    id: 11,
-    title: "Champagne Tissue Lehenga",
-    subCategory: "Lehenga",
-    price: 58000,
-    originalPrice: 68000,
-    image: "https://images.unsplash.com/photo-1609803384069-19f3f09571c4?auto=format&fit=crop&w=400&q=80",
-  },
-  {
-    id: 9,
-    title: "Crimson Banarasi Saree",
-    subCategory: "Saree",
-    price: 34500,
-    originalPrice: 40000,
-    image: "https://images.unsplash.com/photo-1617627143233-1b3e0f13f68b?auto=format&fit=crop&w=400&q=80",
-  },
-];
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [cartItems, setCartItems] = useState<CartItem[]>(defaultCartItems);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]); // Start empty, fetch from DB
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>(defaultWishlist);
+  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
+
+  // 1. Fetch user's cart from backend on load (if logged in)
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (token) {
+          const response = await cartService.getUserCart();
+          if (response.success) {
+            // Note: You may need to map your backend's cart data structure 
+            // to match the frontend CartItem interface here based on your DB schema
+            setCartItems(response.cartData || []); 
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching cart:", error);
+      }
+    };
+    fetchCart();
+  }, []);
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
-  const addToCart = (item?: Partial<CartItem>) => {
-    if (!item || !item.id) {
-      setCartItems(prev => {
-        const existing = prev.find(i => i.id === 99);
-        if (existing) return prev.map(i => i.id === 99 ? { ...i, quantity: i.quantity + 1 } : i);
-        return [...prev, { id: 99, title: "New Item", subCategory: "Ethnic Wear", price: 12999, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=200&q=80", quantity: 1 }];
-      });
-      return;
-    }
+  // 2. Sync Add to Cart with Backend
+  const addToCart = async (item?: Partial<CartItem>) => {
+    if (!item || !item.id) return;
+    
+    // Optimistic UI Update (Updates instantly for the user)
     setCartItems(prev => {
       const existing = prev.find(i => i.id === item.id);
       if (existing) return prev.map(i => i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i);
       return [...prev, { ...(item as CartItem), quantity: item.quantity ?? 1 }];
     });
+
+    // API Call to database
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        await cartService.addToCart(item.id.toString(), item.size || "M");
+      }
+    } catch (error) {
+      console.error("Failed to add to backend cart:", error);
+    }
   };
 
-  const removeFromCart = (id: number) => {
+  // 3. Sync Remove from Cart with Backend
+  const removeFromCart = async (id: number | string) => {
     setCartItems(prev => prev.filter(i => i.id !== id));
+    
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        // In your backend, updating quantity to 0 removes it
+        await cartService.updateCart(id.toString(), "M", 0); 
+      }
+    } catch (error) {
+      console.error("Failed to remove from backend cart:", error);
+    }
   };
 
-  const updateQuantity = (id: number, quantity: number) => {
-    if (quantity < 1) { removeFromCart(id); return; }
+  // 4. Sync Update Quantity with Backend
+  const updateQuantity = async (id: number | string, quantity: number) => {
+    if (quantity < 1) { 
+      removeFromCart(id); 
+      return; 
+    }
+    
     setCartItems(prev => prev.map(i => i.id === id ? { ...i, quantity } : i));
+
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const item = cartItems.find(i => i.id === id);
+        await cartService.updateCart(id.toString(), item?.size || "M", quantity);
+      }
+    } catch (error) {
+      console.error("Failed to update backend cart quantity:", error);
+    }
   };
 
+  // Wishlist functions remain local state for now unless you have a wishlist backend route
   const addToWishlist = (item: WishlistItem) => {
     setWishlistItems(prev => {
       if (prev.find(i => i.id === item.id)) return prev;
@@ -115,11 +129,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const removeFromWishlist = (id: number) => {
+  const removeFromWishlist = (id: number | string) => {
     setWishlistItems(prev => prev.filter(i => i.id !== id));
   };
 
-  const isInWishlist = (id: number) => wishlistItems.some(i => i.id === id);
+  const isInWishlist = (id: number | string) => wishlistItems.some(i => i.id === id);
 
   const openCart = () => setIsCartOpen(true);
   const closeCart = () => setIsCartOpen(false);
